@@ -1,4 +1,1 @@
-bin/
-obj/
-*.vcxproj.user
-.vs/
+build/
