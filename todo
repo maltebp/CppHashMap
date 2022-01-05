@@ -1,6 +1,6 @@
 
-
 To do:
-    ☐ Setup Premake project
-    ☐ Create map
-    ☐ Create iterato
+    ✔ Setup Premake project
+    ☐ Create map class
+    ☐ Create iterator
+    ☐ Compare performance with std::map
