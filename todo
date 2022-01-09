@@ -1,6 +1,17 @@
 
 To do:
     ✔ Setup Premake project
+    
+    Setup Catch:
+        ☐ Introduce Catch lib
+        ☐ Convert source code into static lib
+        ☐ Create unit test project
+
     ☐ Create map class
     ☐ Create iterator
-    ☐ Compare performance with std::map
+    
+    Benchmark:
+        ☐ Create benchmark project
+        ☐ Compare performance with std::map
+
+    ☐ Create README
