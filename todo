@@ -1,6 +1,8 @@
 
 To do:
     ✔ Setup Premake project
+    ☐ Test unordered_map
+        ☐ Does it allocate everytime an element is added? (because of the usage of linked list)
     
     Setup Catch:
         ☐ Introduce Catch lib
@@ -9,6 +11,7 @@ To do:
 
     ☐ Create map class
     ☐ Create iterator
+    ☐ Create emplacement functions
     
     Benchmark:
         ☐ Create benchmark project
