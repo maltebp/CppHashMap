@@ -2,7 +2,9 @@
 
 #include "catch.hpp"
 
+#include "CppHashMap/test.h"
+
 
 TEST_CASE("Test of unit test system", "") {
-    REQUIRE(1 == 2);
+    REQUIRE(test() == 2);
 }

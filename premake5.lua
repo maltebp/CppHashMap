@@ -40,5 +40,7 @@ project "UnitTest"
     files { "src/UnitTest/**.h", "src/UnitTest/**.cpp", "src/UnitTest/**.hpp" }
     includedirs { "src/UnitTest", "src" }
 
+    links { "CppHashMap" }
+
     filter "platforms:x64"
         architecture "x64"
