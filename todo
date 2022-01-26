@@ -14,9 +14,9 @@ To do:
         ✔ Setup Premake project
 
         Setup Catch:
-            ☐ Introduce Catch lib
-            ☐ Convert source code into static lib
-            ☐ Create unit test project
+            ✔ Introduce Catch lib
+            ✔ Convert source code into static lib
+            ✔ Create unit test project
 
         ☐ Design/setup general hash signature
 
