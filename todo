@@ -1,30 +1,57 @@
 
 To do:
-    ✔ Setup Premake project
 
     Investigation:
         ✔ Test unordered_map
             ✔ Does it allocate everytime an element is added? (because of the usage of linked list)
-            Yes
-        ☐ Understand C# implementation
+        ✔ Understand C# implementation
             ✔ Write correct C# variant
             ✔ Understand how holes are fixed
-            ☐ Read SO post on why using primes for array sizes is useful
-        ☐ Java implementation
-    
+            ✔ Read SO post on why using primes for array sizes is useful
 
-    
-    Setup Catch:
-        ☐ Introduce Catch lib
-        ☐ Convert source code into static lib
-        ☐ Create unit test project
+    Code:
 
-    ☐ Create map class
-    ☐ Create iterator
-    ☐ Create emplacement functions
-    
-    Benchmark:
-        ☐ Create benchmark project
-        ☐ Compare performance with std::map
+        ✔ Setup Premake project
 
-    ☐ Create README
+        Setup Catch:
+            ☐ Introduce Catch lib
+            ☐ Convert source code into static lib
+            ☐ Create unit test project
+
+        ☐ Design/setup general hash signature
+
+        Implementations:
+        Each implementation should support insert, get, iterator, rehash
+        callback, memory footprint and have unit tests
+
+            ☐ Regular linked list
+            ☐ .NET-like linked list
+            ☐ Linear probing
+            ☐ Quadratic probing
+        
+        ☐ Create emplacement logic for one implementation 
+            (just to try the andunderstand the complications of it)
+
+        Benchmark:
+            ☐ Create benchmark project
+            ☐ Create interface for generalizing hashmap
+
+                ☐ Different level of hash funcion quality
+                At different number of entries test:
+                    ☐ Insertion time
+                    ☐ Query time
+                    ☐ Iteration time
+                    ☐ Rehashing time (for the ones available)
+                    ☐ Keep track of rehashing count
+                    ☐ Keep track of load factor
+                    ☐ Keep track of memory footprint
+
+            Note: std::unordered_map probably cannot give information about
+            several of these, so we need the option to opt out of them.
+
+    ☐ Create README and describe project
+    
+    Optional:
+        ☐ Test on a mac
+        ☐ Test on a Linux dist
+        
