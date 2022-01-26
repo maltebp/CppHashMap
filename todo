@@ -1,8 +1,18 @@
 
 To do:
     ✔ Setup Premake project
-    ☐ Test unordered_map
-        ☐ Does it allocate everytime an element is added? (because of the usage of linked list)
+
+    Investigation:
+        ✔ Test unordered_map
+            ✔ Does it allocate everytime an element is added? (because of the usage of linked list)
+            Yes
+        ☐ Understand C# implementation
+            ✔ Write correct C# variant
+            ✔ Understand how holes are fixed
+            ☐ Read SO post on why using primes for array sizes is useful
+        ☐ Java implementation
+    
+
     
     Setup Catch:
         ☐ Introduce Catch lib
