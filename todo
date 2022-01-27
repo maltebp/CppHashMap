@@ -21,8 +21,8 @@ To do:
         ☐ Design/setup general hash signature
 
         Implementations:
-        Each implementation should support insert, get, iterator, rehash
-        callback, memory footprint and have unit tests
+        Each implementation should support insert, get, contains, iterator (should support foreach),
+        rehash callback, memory footprint and have unit tests
 
             ☐ Regular linked list
             ☐ .NET-like linked list
