@@ -30,6 +30,7 @@ project "Sandbox"
 
     filter "platforms:x64"
         architecture "x64"
+        
 
 project "UnitTest"
 
