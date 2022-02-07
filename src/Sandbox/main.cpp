@@ -17,5 +17,5 @@ int main(int argc, char** argv) {
     LinkedListMap<int,std::string> map;
 
     bool existed = map.insert(10, "Hello world");
-    map.insert(10, "Goodbye hello");
+    existed = map.insert(10, "Goodbye hello");
 }

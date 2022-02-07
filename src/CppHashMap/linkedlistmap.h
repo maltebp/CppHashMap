@@ -20,7 +20,7 @@ public:
 
         if( existingNode != nullptr ) {
             existingNode->value = value;
-            return false;
+            return true;
         }
 
         Node* node = new Node();
@@ -36,7 +36,7 @@ public:
             previousNode->next = node;                
         }
 
-        return true;
+        return false;
     }
     
 
