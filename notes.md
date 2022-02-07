@@ -57,6 +57,8 @@ The number of buckets is often dynamically increased as the load factor increase
 
 - In C# and Java (and probably others), changing the values of a used key element will break the search for that particular key (because the hash is no longer valid).
 
+- Typically, you store the computed hash with the entry, to increase performance as recomputing the hash and performing `equals` operations can be expensive.
+
 ## Language implementations
 
 ##### C++: `std::unordered_map`

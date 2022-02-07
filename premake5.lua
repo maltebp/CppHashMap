@@ -3,6 +3,7 @@ workspace "CppHashMap"
     platforms { "x64" }
     location "build"
     startproject "Sandbox"
+    cppdialect "C++17"
 
 
 project "CppHashMap"
@@ -26,7 +27,7 @@ project "Sandbox"
     files { "src/Sandbox/**.h", "src/Sandbox/**.cpp", "src/Sandbox/**.hpp" }
     includedirs { "src/Sandbox", "src" }
     
-    links { "CppHashMap" }
+    -- links { "CppHashMap" }
 
     filter "platforms:x64"
         architecture "x64"
@@ -41,7 +42,7 @@ project "UnitTest"
     files { "src/UnitTest/**.h", "src/UnitTest/**.cpp", "src/UnitTest/**.hpp" }
     includedirs { "src/UnitTest", "src" }
 
-    links { "CppHashMap" }
+    -- links { "CppHashMap" }
 
     filter "platforms:x64"
         architecture "x64"

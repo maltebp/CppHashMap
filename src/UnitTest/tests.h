@@ -7,6 +7,7 @@
 #include "data.h"
 #include "CppHashMap/ihashmap.h"
 #include "CppHashMap/unorderedmapwrapper.h"
+#include "CppHashMap/linkedlistmap.h"
 
 using namespace std;
 
@@ -150,5 +151,11 @@ void testMap(IHashMap<int, int>& hashMap) {
 
 TEST_CASE("unordered_map", "") {    
     UnorderedMapWrapper<int, int> map;
+    testMap(map);
+}
+
+
+TEST_CASE("Linked List Map", "") {    
+    LinkedListMap<int, int> map;
     testMap(map);
 }
