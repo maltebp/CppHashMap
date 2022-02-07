@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "CppHashMap/linkedlistmap.h"
 
@@ -13,10 +14,8 @@ size_t calculateHash<int>(const int& key) {
 
 int main(int argc, char** argv) {
 
-    LinkedListMap<int,int> map;
+    LinkedListMap<int,std::string> map;
 
-    size_t hash = calculateHash<int>(10);
-
-    cout << hash << std::endl;
-
+    bool existed = map.insert(10, "Hello world");
+    map.insert(10, "Goodbye hello");
 }
