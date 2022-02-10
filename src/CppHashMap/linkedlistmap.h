@@ -16,42 +16,43 @@ public:
 
     virtual void insert(const Key& key, const Value& value) override {
         size_t hash = calculateHash(key);
-        auto[ existingNode, previousNode ] = getNode(key, hash);
+        auto[ node, nodePointer ] = getNode(key, hash);
 
-        if( existingNode != nullptr ) {
-            existingNode->value = value;
+        if( node != nullptr ) {
+            node->value = value;
             return;
         }
 
-        Node* node = new Node();
-        node->key = key;
-        node->value = value;
-        node->hash = hash;
+        Node* newNode = new Node();
+        newNode->key = key;
+        newNode->value = value;
+        newNode->hash = hash;
 
-        if( previousNode == nullptr ) {
-            size_t bucketIndex = hash % buckets.size();
-            buckets[bucketIndex] = node;
-        }
-        else {
-            previousNode->next = node;                
-        }
+        *nodePointer = newNode;                
     }
     
 
     virtual Value& get(const Key& key) override {
         size_t hash = calculateHash(key);
-        auto[ existingNode, previousNode ] = getNode(key, hash);
+        auto[ node, nodePointer ] = getNode(key, hash);
 
-        if( existingNode == nullptr ) {
+        if( node == nullptr ) {
             throw std::out_of_range("Could not find key");
         }
 
-        return existingNode->value;
+        return node->value;
     }
 
 
-    virtual void remove(const Key& key) override {
-        // TODO: Implement
+    virtual bool remove(const Key& key) override {
+        size_t hash = calculateHash(key);
+        auto[ node, nodePointer ] = getNode(key, hash);
+
+        if( node == nullptr ) return false;
+
+        *nodePointer = nullptr;
+        delete node;        
+        return true;
     }
 
     
@@ -70,23 +71,25 @@ private:
 
     /**
      * @return  Tuple where first element is pointer to the node, and second is
-     *          a pointer to the node pointing to that node.
+     *          a pointer to the pointer (parent node next or bucket) that
+     *          points to the node or to the space into which the node should be
+     *          inserted
      */
-    std::tuple<Node*, Node*> getNode(const Key& key, size_t hash) {
+    std::tuple<Node*, Node**> getNode(const Key& key, size_t hash) {
         size_t bucketIndex = hash % buckets.size();
 
-        Node* previousNode = nullptr;
+        Node** previousNode = &(buckets[bucketIndex]);
         Node* currentNode = buckets[bucketIndex];
         while( currentNode != nullptr ) {
             if( hash == currentNode->hash && currentNode->key == key ) {
                 return { currentNode, previousNode };
             }
 
-            previousNode = currentNode;
+            previousNode = &(currentNode->next);
             currentNode = currentNode->next;           
         }
 
-        return { currentNode, previousNode };
+        return { nullptr, previousNode };
     }
 
 

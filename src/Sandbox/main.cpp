@@ -26,10 +26,13 @@ int main(int argc, char** argv) {
     map.insert(10, "World, hello!");
     cout << map.get(10) << endl;
 
+    cout << "12 removed: " << (map.remove(12) ? "true" : "false") << endl;
+    cout << "15 removed: " << (map.remove(15) ? "true" : "false") << endl;
+
     try {
-        cout << map.get(20) << endl;
+        cout << map.get(15) << endl;
     } catch(std::out_of_range e) {
-        cout << 20 << " does not exist" << endl;
+        cout << 15 << " does not exist" << endl;
     }
     
 }

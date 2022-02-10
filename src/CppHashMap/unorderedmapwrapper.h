@@ -10,9 +10,8 @@ class UnorderedMapWrapper : public IHashMap<Key, Value> {
 public:
 
 
-    virtual bool insert(const Key& key, const Value& value) override {
+    virtual void insert(const Key& key, const Value& value) override {
         map[key] = value;
-        
     }
 
 
@@ -21,8 +20,8 @@ public:
     }
 
 
-    virtual void remove(const Key& key) override {
-        map.erase(key);
+    virtual bool remove(const Key& key) override {
+        return map.erase(key) == 1;
     }
 
 
