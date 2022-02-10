@@ -16,12 +16,16 @@ int main(int argc, char** argv) {
 
     LinkedListMap<int,string> map;
 
+    cout << "Elements: " << map.count() << endl;
+
     map.insert(10, "Hello world");
 
     cout << map.get(10) << endl;
 
     map.insert(15, "Goodbye hello");
     cout << map.get(15) << endl;
+
+    cout << "Elements: " << map.count() << endl;
 
     map.insert(10, "World, hello!");
     cout << map.get(10) << endl;
@@ -34,5 +38,7 @@ int main(int argc, char** argv) {
     } catch(std::out_of_range e) {
         cout << 15 << " does not exist" << endl;
     }
+
+    cout << "Elements: " << map.count() << endl;
     
 }

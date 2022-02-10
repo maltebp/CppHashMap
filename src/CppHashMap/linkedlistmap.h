@@ -28,7 +28,9 @@ public:
         newNode->value = value;
         newNode->hash = hash;
 
-        *nodePointer = newNode;                
+        *nodePointer = newNode; 
+
+        numElements++;               
     }
     
 
@@ -52,13 +54,14 @@ public:
 
         *nodePointer = nullptr;
         delete node;        
+        numElements--;
+
         return true;
     }
 
     
     virtual size_t count() const override {
-        // TODO: Implement
-        return 0; 
+        return numElements;
     }
 
 
@@ -96,6 +99,7 @@ private:
 public:
 
     std::vector<Node*> buckets{9}; // TODO: Change initial size to 1
+    size_t numElements = 0;
 
 private:
 
