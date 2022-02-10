@@ -10,8 +10,9 @@ class UnorderedMapWrapper : public IHashMap<Key, Value> {
 public:
 
 
-    virtual void insert(const Key& key, const Value& value) override {
+    virtual bool insert(const Key& key, const Value& value) override {
         map[key] = value;
+        
     }
 
 

@@ -8,7 +8,7 @@ public:
     /**
      * @return Returns true if the key did not exist prior to insertion 
      */
-    virtual bool insert(const Key& key, const Value& value) = 0;
+    virtual void insert(const Key& key, const Value& value) = 0;
 
     virtual Value& get(const Key& key) = 0;
 

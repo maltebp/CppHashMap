@@ -14,13 +14,13 @@ private:
 
 public:
 
-    virtual bool insert(const Key& key, const Value& value) override {
+    virtual void insert(const Key& key, const Value& value) override {
         size_t hash = calculateHash(key);
         auto[ existingNode, previousNode ] = getNode(key, hash);
 
         if( existingNode != nullptr ) {
             existingNode->value = value;
-            return true;
+            return;
         }
 
         Node* node = new Node();
@@ -35,15 +35,18 @@ public:
         else {
             previousNode->next = node;                
         }
-
-        return false;
     }
     
 
     virtual Value& get(const Key& key) override {
-        // TODO: Implement
-        Value val;
-        return val; 
+        size_t hash = calculateHash(key);
+        auto[ existingNode, previousNode ] = getNode(key, hash);
+
+        if( existingNode == nullptr ) {
+            throw std::out_of_range("Could not find key");
+        }
+
+        return existingNode->value;
     }
 
 

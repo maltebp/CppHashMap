@@ -11,6 +11,8 @@
 
 using namespace std;
 
+// TODO: Define custom hashing function for unit tests 
+// TODO: Create test for inserting with different keys that hash to the same value
 
 void testMap(IHashMap<int, int>& hashMap) {
 
