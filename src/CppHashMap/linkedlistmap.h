@@ -52,7 +52,7 @@ public:
 
         if( node == nullptr ) return false;
 
-        *nodePointer = nullptr;
+        *nodePointer = node->next;
         delete node;        
         numElements--;
 
@@ -81,18 +81,18 @@ private:
     std::tuple<Node*, Node**> getNode(const Key& key, size_t hash) {
         size_t bucketIndex = hash % buckets.size();
 
-        Node** previousNode = &(buckets[bucketIndex]);
-        Node* currentNode = buckets[bucketIndex];
+        Node** nodePointer = &(buckets[bucketIndex]);
+        Node* currentNode = *nodePointer;
         while( currentNode != nullptr ) {
             if( hash == currentNode->hash && currentNode->key == key ) {
-                return { currentNode, previousNode };
+                return { currentNode, nodePointer };
             }
 
-            previousNode = &(currentNode->next);
+            nodePointer = &(currentNode->next);
             currentNode = currentNode->next;           
         }
 
-        return { nullptr, previousNode };
+        return { nullptr, nodePointer };
     }
 
 

@@ -12,7 +12,7 @@ In general, implementing a hash map is a **space-time** trade-off.
 
 ## Solving the problem
 
-In general, we reduce the number of "slots" and map several hashes (indices) to the same slot (i.e. by using modulo).
+In general, we reduce the number of "slots" and map several hashes (indices) to the same slot (e.g. by using modulo).
 
 - **Buckets:** The array of slots that we have available, which a hash can map to in "constant" time.
 
