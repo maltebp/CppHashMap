@@ -7,12 +7,6 @@
 using namespace std;
 
 
-template<>
-size_t calculateHash<int>(const int& key) {
-    return (size_t)(6);
-}
-
-
 int main(int argc, char** argv) {
 
     vector<const char*> args;

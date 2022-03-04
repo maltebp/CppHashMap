@@ -14,6 +14,7 @@ private:
 
 public:
 
+
     virtual void insert(const Key& key, const Value& value) override {
         size_t hash = calculateHash(key);
         auto[ node, nodePointer ] = getNode(key, hash);
@@ -32,7 +33,7 @@ public:
 
         numElements++;               
     }
-    
+
 
     virtual Value& get(const Key& key) override {
         size_t hash = calculateHash(key);

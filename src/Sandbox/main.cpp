@@ -8,7 +8,7 @@ using namespace std;
 
 template<>
 size_t calculateHash<int>(const int& key) {
-    return (size_t)(key%6);
+    return (size_t)key;
 }
 
 

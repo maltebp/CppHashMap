@@ -11,10 +11,22 @@
 
 using namespace std;
 
-// TODO: Define custom hashing function for unit tests 
-// TODO: Create test for inserting with different keys that hash to the same value
+
+size_t defaultHashFunction(const int& key) {
+    return (size_t)key;
+}
+
+std::function<size_t(const int& key)> hashFunction = defaultHashFunction;
+
+template<>
+size_t calculateHash<int>(const int& key) {
+    return hashFunction(key);
+}
+
 
 void testMap(IHashMap<int, int>& hashMap) {
+
+    hashFunction = defaultHashFunction;
 
     SECTION("Insert and get (Basic)") {
         hashMap.insert(1,1);
@@ -77,7 +89,6 @@ void testMap(IHashMap<int, int>& hashMap) {
 
         REQUIRE(allMatched);
     }
-    
 
     SECTION("Re-insert (Advanced)") {
         for( int i : DATA ) {
@@ -117,7 +128,6 @@ void testMap(IHashMap<int, int>& hashMap) {
         REQUIRE( allMatched );
     }
 
-    
     SECTION("Overwrite (Advanced)") {
         for( int i : DATA ) {
             hashMap.insert(i, i);
@@ -147,6 +157,28 @@ void testMap(IHashMap<int, int>& hashMap) {
             }
         }
         REQUIRE( allMatched );
+    }
+
+
+    hashFunction = [](const int& key) {
+        return (size_t)(key%10);
+    };
+
+    SECTION("Same hash value") {
+        for( int i=0; i<1000; i++ ) {
+            hashMap.insert(i, i);    
+        }
+
+        bool allMatched = true;
+        for( int i=0; i<1000; i++ ) {
+            int value = hashMap.get(i);
+            if( value != i ) {
+                allMatched = false;
+                break;
+            }
+        }
+
+        REQUIRE(allMatched);
     }
 }
 
