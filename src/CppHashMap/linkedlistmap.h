@@ -111,9 +111,9 @@ private:
 private:
 
     struct Node {
-        Key key;
-        Value value;
-        size_t hash;
+        Key key = Key();
+        Value value = Value();
+        size_t hash = 0;
         Node* next = nullptr;
     };
 
