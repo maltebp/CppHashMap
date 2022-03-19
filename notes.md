@@ -6,9 +6,9 @@ A **key** should produce an **integer hash**, which can be as an "partial" **ind
 
 ## **The core problem:**
 
-If use a simple array, and we insert an element with hash `n` then we have to allocate memory for all elements from `0` to `n`. This will leave much unused memory. 
+If we use a simple array, and we insert an element with hash `n` then we have to allocate memory for all elements from `0` to `n`. This will leave much unused memory. 
 
-In general, implementing a hash map is a **space-time** trade-off.
+
 
 ## Solving the problem
 
@@ -23,12 +23,15 @@ In general, we reduce the number of "slots" and map several hashes (indices) to 
 - **Load factor:** How many elements the map contains compared to the number of buckets. We want a load factor close to 1.
   
   **Clustering:** How much the elements are clustered together (hash to the same bucket). We want to avoid this as much as possible.
+  
+
+In general, implementing a hash map is a **space-time** trade-off.
 
 #### Collision Resolution
 
 In general, we use two groups of methods:
 
-- **Seperate Chaining**
+- **Separate Chaining**
   Each bucket is (or maps) some seperate data structure. Often this is a *linked list* or a *tree*.
 
 - **Open Addressing**
@@ -78,7 +81,7 @@ Good source: [.NET Dictionary, impressively fast but how does it work? - Stack O
 
 - **Seperate chaining** variant using an array implementation of a singly linked list
 
-- Chaining is built by wrapping entries in `Entry` structs that are stored in an array. Each `Entry` contains an index to the next `Entry`, and the `bucket` array are indices to the first element in each chain.
+- Chaining is built by wrapping entries in `Entry` structs that are stored in an array. Each `Entry` contains an index to the next `Entry` in the chain, and the `bucket` array are indices to the first element in each chain.
 
 - `Entry`-array and bucket array are resized when the `Entry` array is full (or the *freelist* is empty). **Note:** not entirely sure this is true, because I think you'll risk tsoo high load factor?
 

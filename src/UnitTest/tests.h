@@ -11,20 +11,47 @@
 
 using namespace std;
 
+// Required so we may define our own std::hash for an "int type" (I cannot figure
+// out how override default).
+struct int2 {
+    
+    int2() : i(0) {}
+    
+    int2(int i) : i(i) {}
 
-size_t defaultHashFunction(const int& key) {
-    return (size_t)key;
+    bool operator==(const int2& other) const {
+        return i == other.i;
+    }
+
+    bool operator!=(const int2& other) const {
+        return i != other.i;
+    }
+
+    int i;
+};
+
+size_t defaultHashFunction(const int2& key) {
+    return (size_t)key.i;
 }
 
-std::function<size_t(const int& key)> hashFunction = defaultHashFunction;
+function<size_t(const int2& key)> hashFunction = defaultHashFunction;
 
 template<>
-size_t calculateHash<int>(const int& key) {
+size_t calculateHash<int2>(const int2& key) {
     return hashFunction(key);
 }
 
+// Redirecting unordered_map hash to hashFunction
+template<>
+struct hash<int2>
+{
+    size_t operator()(const int2& i) const {
+        return calculateHash(i);
+    }
+};
 
-void testMap(IHashMap<int, int>& hashMap) {
+
+void testMap(IHashMap<int2,int>& hashMap) {
 
     hashFunction = defaultHashFunction;
 
@@ -160,8 +187,8 @@ void testMap(IHashMap<int, int>& hashMap) {
     }
 
 
-    hashFunction = [](const int& key) {
-        return (size_t)(key%10);
+    hashFunction = [](const int2& key) {
+        return (size_t)(key.i%10);
     };
 
     SECTION("Same hash value") {
@@ -184,12 +211,38 @@ void testMap(IHashMap<int, int>& hashMap) {
 
 
 TEST_CASE("unordered_map", "") {    
-    UnorderedMapWrapper<int, int> map;
-    testMap(map);
+    UnorderedMapWrapper<int2, int> map;
+
+    SECTION("General test") {
+        testMap(map);
+    }
+
+    SECTION("Rehashing") {
+        // unordered_map defaults to rehash when load_factor (num_buckets /
+        // num_elements) exceeds 1, so we can force a rehash this way.
+
+        hashFunction = defaultHashFunction;
+
+        REQUIRE( map.rehashCount() == 0 );
+    
+        int numBuckets1 = (int)map.map.bucket_count() + 1;
+        for( int i=0; i <= numBuckets1; i++ ) {
+            map.insert(i, i);    
+        }
+
+        REQUIRE( map.rehashCount() == 1 );
+
+        int numBuckets2 = (int)map.map.bucket_count();
+        for( int i=numBuckets1+1; i <= numBuckets2; i++ ) {
+            map.insert(i, i);    
+        }
+
+        REQUIRE( map.rehashCount() == 2 );
+    }
 }
 
 
 TEST_CASE("Linked List Map", "") {    
-    LinkedListMap<int, int> map;
+    LinkedListMap<int2, int> map;
     testMap(map);
 }

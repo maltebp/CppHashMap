@@ -66,6 +66,11 @@ public:
     }
 
 
+    virtual size_t rehashCount() const override {
+        return rehashes;
+    }
+
+
 private:
 
     void resizeAndRehash() {
@@ -97,10 +102,11 @@ private:
     }
 
 
-public:
+private:
 
-    std::vector<Node*> buckets{9}; // TODO: Change initial size to 1
+    std::vector<Node*> buckets{1};
     size_t numElements = 0;
+    size_t rehashes = 0;
 
 private:
 

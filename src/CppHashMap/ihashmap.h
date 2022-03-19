@@ -16,6 +16,8 @@ public:
 
     virtual size_t count() const = 0;
 
+    virtual size_t rehashCount() const = 0;
+
 };
 
 

@@ -1,5 +1,21 @@
 
-To do:
+Todo:
+    ☐ Test rehashing for unordered_map
+    ☐ Linked list
+        ☐ Resize and rehash
+        ☐ Iterator
+    ☐ Set hash for unordered_map
+    ☐ Iterator unit test
+    ☐ How are elements indexed in the .NET implementation?
+    ☐ Linear probing map:
+        ☐ Insert
+        ☐ Get
+        ☐ Remove
+        ☐ Iterator
+        ☐ Emplacement logic
+
+
+Plan:
 
     Investigation:
         ✔ Test unordered_map
@@ -18,7 +34,7 @@ To do:
             ✔ Convert source code into static lib
             ✔ Create unit test project
 
-        ☐ Design/setup general hash signature
+        ✔ Design/setup general hash signature
 
         Implementations:
         Each implementation should support insert, get, contains, iterator (should support foreach),
@@ -34,17 +50,21 @@ To do:
 
         Benchmark:
             ☐ Create benchmark project
-            ☐ Create interface for generalizing hashmap
+            ✔ Create interface for generalizing hashmap
+            IHashMap methods for benchmarking:
+                ☐ Rehash callback
+                ☐ Memory footprint
+                ☐ Load factor
 
-                ☐ Different level of hash funcion quality
-                At different number of entries test:
-                    ☐ Insertion time
-                    ☐ Query time
-                    ☐ Iteration time
-                    ☐ Rehashing time (for the ones available)
-                    ☐ Keep track of rehashing count
-                    ☐ Keep track of load factor
-                    ☐ Keep track of memory footprint
+            ☐ Different level of hash funcion quality
+            At different number of entries test:
+                ☐ Insertion time
+                ☐ Query time
+                ☐ Iteration time
+                ☐ Rehashing time (for the ones available)
+                ☐ Keep track of rehashing count
+                ☐ Keep track of load factor
+                ☐ Keep track of memory footprint
 
             Note: std::unordered_map probably cannot give information about
             several of these, so we need the option to opt out of them.
