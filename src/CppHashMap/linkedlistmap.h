@@ -31,7 +31,11 @@ public:
 
         *nodePointer = newNode; 
 
-        numElements++;               
+        numElements++; 
+
+        if ((double)numElements / buckets.size() > 1 ){
+            resizeAndRehash();
+        }              
     }
 
 
@@ -74,7 +78,31 @@ public:
 private:
 
     void resizeAndRehash() {
+        rehashes++;
+
+        std::vector<Node*> oldBuckets = std::move(buckets);
         
+        buckets.clear();
+        buckets.resize(oldBuckets.size() * 2);
+        numElements = 0;
+
+        for( Node* bucket : oldBuckets ){
+            Node* node = bucket;
+            while( node != nullptr ){
+                insertNode(node);
+
+                Node* nextNode = node->next;
+                node->next = nullptr;
+                node = nextNode;
+            }
+        }
+    }
+
+
+    void insertNode(Node* node){
+        auto[ _, nodePointer ] = getNode(node->key, node->hash);
+        *nodePointer = node; 
+        numElements++;   
     }
 
 
@@ -84,7 +112,7 @@ private:
      *          points to the node or to the space into which the node should be
      *          inserted
      */
-    std::tuple<Node*, Node**> getNode(const Key& key, size_t hash) {
+    std::tuple<Node*, Node**> getNode(const Key& key, size_t hash){
         size_t bucketIndex = hash % buckets.size();
 
         Node** nodePointer = &(buckets[bucketIndex]);

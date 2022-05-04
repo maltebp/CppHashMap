@@ -30,6 +30,9 @@ int main(int argc, char** argv) {
     map.insert(10, "World, hello!");
     cout << map.get(10) << endl;
 
+    cout << map.get(10) << endl;
+    cout << map.get(15) << endl;
+
     cout << "12 removed: " << (map.remove(12) ? "true" : "false") << endl;
     cout << "15 removed: " << (map.remove(15) ? "true" : "false") << endl;
 

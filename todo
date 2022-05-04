@@ -1,10 +1,10 @@
 
 Todo:
-    ☐ Test rehashing for unordered_map
+    ✔ Set hash for unordered_map
+    ✔ Test rehashing for unordered_map
     ☐ Linked list
-        ☐ Resize and rehash
+        ✔ Resize and rehash
         ☐ Iterator
-    ☐ Set hash for unordered_map
     ☐ Iterator unit test
     ☐ How are elements indexed in the .NET implementation?
     ☐ Linear probing map:

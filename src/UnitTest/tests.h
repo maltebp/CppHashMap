@@ -244,5 +244,32 @@ TEST_CASE("unordered_map", "") {
 
 TEST_CASE("Linked List Map", "") {    
     LinkedListMap<int2, int> map;
-    testMap(map);
+
+    SECTION("General test") {
+        testMap(map);
+    }
+
+    SECTION("Rehashing") {
+        hashFunction = defaultHashFunction;
+
+        REQUIRE(map.rehashCount() == 0);
+
+        map.insert(1, 1);
+        map.insert(2, 2);
+
+        REQUIRE(map.rehashCount() == 1);
+
+        map.insert(3, 3);
+
+        REQUIRE(map.rehashCount() == 2);
+
+        map.insert(4, 4);
+        map.insert(5, 5);
+
+        REQUIRE(map.rehashCount() == 3);
+
+        for( int i=1; i<=5; i++ ){
+            REQUIRE(map.get(i) == i);
+        }
+    }
 }
