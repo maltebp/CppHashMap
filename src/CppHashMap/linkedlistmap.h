@@ -205,13 +205,13 @@ public:
         }
 
         
-        std::pair<Key,Value>& operator *() const {
+        const std::pair<Key,Value>& operator *() const {
             if( node == nullptr ) throw std::out_of_range("Iterator is out of range");
             return node->keyValuePair;
         }
 
         
-        std::pair<Key,Value>* operator ->() const {
+        const std::pair<Key,Value>* operator ->() const {
             return &(node->keyValuePair);
         }
 
@@ -236,7 +236,7 @@ public:
 
         const LinkedListMap& map;
 
-        Node* node = nullptr;
+        const Node* node = nullptr;
 
         size_t bucket = 0;
 

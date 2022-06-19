@@ -320,9 +320,7 @@ TEST_CASE("Linked List Map", "") {
 
             for( LinkedListMap<int2,int>::Iterator it = map.begin(); it != map.end(); it++ ) {
                 
-                std::pair<int2,int>& pair = *it;
-
-                pair.first.i = 10;
+                const std::pair<int2,int>& pair = *it;
 
                 REQUIRE(it->first == pair.first);
                 REQUIRE(it->second == pair.second);
@@ -342,7 +340,7 @@ TEST_CASE("Linked List Map", "") {
         SECTION("For each loop") {
             bool checks[5] = { 0 };
 
-            for( std::pair<int2,int>& pair : map ) {
+            for( const std::pair<int2,int>& pair : map ) {
                 
                 int index = pair.first.i -1;
 
