@@ -2,17 +2,19 @@
 Todo:
     ✔ Set hash for unordered_map
     ✔ Test rehashing for unordered_map
+    ✔ Resize and rehash
     ☐ Linked list
-        ✔ Resize and rehash
         ☐ Iterator
     ☐ Iterator unit test
     ☐ How are elements indexed in the .NET implementation?
     ☐ Linear probing map:
         ☐ Insert
         ☐ Get
+            How do you know when to stop?
         ☐ Remove
         ☐ Iterator
         ☐ Emplacement logic
+
 
 
 Plan:
@@ -24,6 +26,9 @@ Plan:
             ✔ Write correct C# variant
             ✔ Understand how holes are fixed
             ✔ Read SO post on why using primes for array sizes is useful
+
+        Iterator:
+            ☐ is this <container>::iterator syntax necessary?
 
     Code:
 

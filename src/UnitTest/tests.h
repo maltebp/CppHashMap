@@ -190,6 +190,7 @@ void testMap(IHashMap<int2,int>& hashMap) {
     hashFunction = [](const int2& key) {
         return (size_t)(key.i%10);
     };
+    
 
     SECTION("Same hash value") {
         for( int i=0; i<1000; i++ ) {
@@ -270,6 +271,87 @@ TEST_CASE("Linked List Map", "") {
 
         for( int i=1; i<=5; i++ ){
             REQUIRE(map.get(i) == i);
+        }
+    }
+
+    SECTION("Iterator") {
+        
+        map.insert(1, 1);
+        map.insert(2, 2);
+        map.insert(3, 3);
+        map.insert(4, 4);
+        map.insert(5, 5);
+
+        SECTION("Increment and equality") {
+            LinkedListMap<int2,int>::Iterator it1 = map.begin();
+            LinkedListMap<int2,int>::Iterator it2 = it1;
+            
+            REQUIRE( it1 == it2 );
+
+            it1++;
+
+            REQUIRE( it1 != it2 );
+
+            it2++;
+
+            REQUIRE( it1 == it2 );
+        }
+
+        SECTION("Empty is end") {
+            LinkedListMap<int2,int> emptyMap;
+            REQUIRE( emptyMap.begin() == emptyMap.end() );
+        }
+
+        SECTION("Same content is same iterator") {
+            LinkedListMap<int2,int> map2;
+            map2.insert(1, 1);
+            map2.insert(2, 2);
+            map2.insert(3, 3);
+            map2.insert(4, 4);
+            map2.insert(5, 5);
+
+            REQUIRE( map.begin() != map2.begin());
+            REQUIRE( map.end() != map2.end());
+            REQUIRE( ++map.begin() != ++map2.begin());
+        }
+
+        SECTION("For loop") {
+            bool checks[5] = { 0 };
+
+            for( LinkedListMap<int2,int>::Iterator it = map.begin(); it != map.end(); it++ ) {
+                
+                std::pair<int2,int>& pair = *it;
+
+                REQUIRE(it->first == pair.first);
+                REQUIRE(it->second == pair.second);
+
+                int index = it->first.i -1;
+
+                REQUIRE(checks[index] == false);
+                
+                checks[index] = true;
+            }
+
+            for (bool check : checks) {
+                REQUIRE(check == true);
+            }
+        }
+
+        SECTION("For each loop") {
+            bool checks[5] = { 0 };
+
+            for( std::pair<int2,int>& pair : map ) {
+                
+                int index = pair.first.i -1;
+
+                REQUIRE(checks[index] == false);
+                
+                checks[index] = true;
+            }
+
+            for (bool check : checks) {
+                REQUIRE(check == true);
+            }
         }
     }
 }

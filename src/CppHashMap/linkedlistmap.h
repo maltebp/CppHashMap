@@ -14,19 +14,23 @@ private:
 
 public:
 
+    class Iterator;
+
+public:
+
 
     virtual void insert(const Key& key, const Value& value) override {
         size_t hash = calculateHash(key);
         auto[ node, nodePointer ] = getNode(key, hash);
 
         if( node != nullptr ) {
-            node->value = value;
+            node->keyValuePair.second = value;
             return;
         }
 
         Node* newNode = new Node();
-        newNode->key = key;
-        newNode->value = value;
+        newNode->keyValuePair.first = key;
+        newNode->keyValuePair.second = value;
         newNode->hash = hash;
 
         *nodePointer = newNode; 
@@ -47,7 +51,7 @@ public:
             throw std::out_of_range("Could not find key");
         }
 
-        return node->value;
+        return node->keyValuePair.second;
     }
 
 
@@ -72,6 +76,16 @@ public:
 
     virtual size_t rehashCount() const override {
         return rehashes;
+    }
+
+
+    Iterator begin() const {
+        return Iterator(*this, true);
+    }
+
+
+    Iterator end() const {
+        return Iterator(*this, false);
     }
 
 
@@ -100,7 +114,7 @@ private:
 
 
     void insertNode(Node* node){
-        auto[ _, nodePointer ] = getNode(node->key, node->hash);
+        auto[ _, nodePointer ] = getNode(node->keyValuePair.first, node->hash);
         *nodePointer = node; 
         numElements++;   
     }
@@ -118,7 +132,7 @@ private:
         Node** nodePointer = &(buckets[bucketIndex]);
         Node* currentNode = *nodePointer;
         while( currentNode != nullptr ) {
-            if( hash == currentNode->hash && currentNode->key == key ) {
+            if( hash == currentNode->hash && currentNode->keyValuePair.first == key ) {
                 return { currentNode, nodePointer };
             }
 
@@ -133,16 +147,99 @@ private:
 private:
 
     std::vector<Node*> buckets{1};
+
     size_t numElements = 0;
+
     size_t rehashes = 0;
 
 private:
 
     struct Node {
-        Key key = Key();
-        Value value = Value();
+        std::pair<Key,Value> keyValuePair;
         size_t hash = 0;
         Node* next = nullptr;
+    };
+
+public:
+
+    class Iterator {
+    public:
+        
+        using iterator_category = std::forward_iterator_tag; // I believe forward iterator is approriate for 
+        using difference_type = std::ptrdiff_t; // TODO: Figure out proper type
+        using value_type = std::pair<Key,Value>;
+        using pointer = std::pair<Key,Value>*;
+        using reference = std::pair<Key,Value>&;
+
+    public:
+
+        
+        Iterator(const LinkedListMap& map, bool begin)
+            :   map(map)
+        { 
+            if( !begin || map.numElements == 0 ) {
+                bucket = map.buckets.size();
+                return;
+            }
+
+            bucket = 0;
+            node = map.buckets[0];
+            
+            while( node == nullptr ) {
+                bucket++;
+                node = map.buckets[bucket];
+            }
+        }
+
+
+        bool operator ==(const Iterator& other) const {
+            if( &map != &other.map ) return false;
+            if( node != other.node) return false;
+            if( bucket != other.bucket) return false;
+            return true;
+        }
+
+
+        bool operator !=(const Iterator& other) const {
+            return !(*this == other);
+        }
+
+        
+        std::pair<Key,Value>& operator *() const {
+            if( node == nullptr ) throw std::out_of_range("Iterator is out of range");
+            return node->keyValuePair;
+        }
+
+        
+        std::pair<Key,Value>* operator ->() const {
+            return &(node->keyValuePair);
+        }
+
+        
+        Iterator& operator++() {
+            node = node->next;
+            while( node == nullptr ) {
+                bucket++;
+                if( bucket >= map.buckets.size() ) break;
+                node = map.buckets[bucket];
+            }
+
+            return *this;
+        }
+
+        Iterator operator++(int) {
+            return ++(*this);
+        }
+
+
+    private:
+
+        const LinkedListMap& map;
+
+        Node* node = nullptr;
+
+        size_t bucket = 0;
+
     };
 
 };

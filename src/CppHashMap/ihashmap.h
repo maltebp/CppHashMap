@@ -3,6 +3,10 @@
 
 template<typename Key, typename Value>
 class IHashMap {
+private:
+
+    class IIterator;
+
 public:
 
     /**
@@ -17,6 +21,20 @@ public:
     virtual size_t count() const = 0;
 
     virtual size_t rehashCount() const = 0;
+
+    // TODO: Implement this
+    // virtual IIterator begin() const = 0;
+
+    // virtual IIterator end() const = 0;
+
+public:
+
+    // TODO: Implement this
+    class IIterator {
+        
+
+        
+    };
 
 };
 
