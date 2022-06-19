@@ -166,7 +166,7 @@ public:
     public:
         
         using iterator_category = std::forward_iterator_tag; // I believe forward iterator is approriate for 
-        using difference_type = std::ptrdiff_t; // TODO: Figure out proper type
+        using difference_type = std::ptrdiff_t; // Not if this is the appropriate type
         using value_type = std::pair<Key,Value>;
         using pointer = std::pair<Key,Value>*;
         using reference = std::pair<Key,Value>&;

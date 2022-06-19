@@ -322,6 +322,8 @@ TEST_CASE("Linked List Map", "") {
                 
                 std::pair<int2,int>& pair = *it;
 
+                pair.first.i = 10;
+
                 REQUIRE(it->first == pair.first);
                 REQUIRE(it->second == pair.second);
 
