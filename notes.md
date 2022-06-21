@@ -8,8 +8,6 @@ A **key** should produce an **integer hash**, which can be as an "partial" **ind
 
 If we use a simple array, and we insert an element with hash `n` then we have to allocate memory for all elements from `0` to `n`. This will leave much unused memory. 
 
-
-
 ## Solving the problem
 
 In general, we reduce the number of "slots" and map several hashes (indices) to the same slot (e.g. by using modulo).
@@ -23,7 +21,6 @@ In general, we reduce the number of "slots" and map several hashes (indices) to 
 - **Load factor:** How many elements the map contains compared to the number of buckets. We want a load factor close to 1.
   
   **Clustering:** How much the elements are clustered together (hash to the same bucket). We want to avoid this as much as possible.
-  
 
 In general, implementing a hash map is a **space-time** trade-off.
 
@@ -45,6 +42,8 @@ In general, we use two groups of methods:
   - **Double hashing**: use some an internal hash function to compute new index.
   
   Linear probing has has higher **clustering** than quadratic probing, but also better spatial locality.
+  
+  Open addressing seems to have a challenge with deletion.
 
 #### Rehashing
 
@@ -54,7 +53,9 @@ The number of buckets is often dynamically increased as the load factor increase
 
 - In general hash algorithms have **poor spatial locality** (e.g. with a linked list implementation). But because the map is still very much sporadic *I suspect* that this is only a significant problem when we iterate over the map.
 
-- Open-addressing typically have lower **load factor**
+- Open-addressing performance may degrade over time when deleting / inserting lots of entries, because chains do not become shorter when deleting (i.e. when using *lazy deletion*).
+
+- Open-addressing typically have lower **load factor** (not sure about this)
 
 - Open-addressing deletion of many elements can be optimized (see Wiki, e.g. *lazy deletion*)
 
@@ -93,9 +94,10 @@ Good source: [.NET Dictionary, impressively fast but how does it work? - Stack O
 
 - [CppCon 2014: Chandler Carruth &quot;Efficiency with Algorithms, Performance with Data Structures&quot;](https://www.youtube.com/watch?v=fHNmRkzxHWs&ab_channel=CppCon)
   Should be quite interesting as he talks about the fact that C++ maps are slow
-
 - [Super high performance C/C++ hash map (table, dictionary) - Stack Overflow](https://stackoverflow.com/questions/3300525/super-high-performance-c-c-hash-map-table-dictionary)
   Answer that talks about different hash table implementations (e.g. [Google SparseHash](https://github.com/sparsehash/sparsehash)).
+- https://stackoverflow.com/a/13651266/12037986
+  SO comment on performance benefits on open- vs. closed-addressing.
 
 ## Unanswered questions
 

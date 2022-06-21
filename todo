@@ -3,17 +3,23 @@ Todo:
     ✔ Set hash for unordered_map
     ✔ Test rehashing for unordered_map
     ✔ Resize and rehash
-    ☐ Linked list
-        ☐ Iterator
-    ☐ Iterator unit test
-    ☐ How are elements indexed in the .NET implementation?
-    ☐ Linear probing map:
+    ✔ Linked list
+        ✔ Iterator
+        ☐ Emplacement logic
+    ✔ Iterator unit test
+    ✔ How are elements indexed in the .NET implementation?
+    ☐ Quadratic probing map:
         ☐ Insert
         ☐ Get
-            How do you know when to stop?
+            ☐ How do you know when to stop?
+                When it you encounter an empty cell, or if you end up at the same bucket as previously
         ☐ Remove
+            Do lazy deletion
+            ✔ Figure out how lazy deletion is cleaned
+                During search, we move the found element to the deleted space
         ☐ Iterator
-        ☐ Emplacement logic
+        ☐ Unit tests
+    ☐ Create unit test where indices just hash to the same thing
 
 
 
@@ -28,7 +34,8 @@ Plan:
             ✔ Read SO post on why using primes for array sizes is useful
 
         Iterator:
-            ☐ is this <container>::iterator syntax necessary?
+            ✔ is this <container>::iterator syntax necessary?
+                No - I believe the iterator pattern is determined by members being avaliable (<container>.begin())
 
     Code:
 
