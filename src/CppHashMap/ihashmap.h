@@ -3,10 +3,6 @@
 
 template<typename Key, typename Value>
 class IHashMap {
-private:
-
-    class IIterator;
-
 public:
 
     /**
