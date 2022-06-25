@@ -31,19 +31,30 @@ public:
     virtual Value& get(const Key& key) override {
         size_t hash = calculateHash(key);
 
+        Entry* firstDeletedEntry = nullptr;
+
         for( size_t i = 0; i < buckets.size(); i++ ) {
             
             size_t index =  (hash + (i * i + i)/2) % buckets.size();
 
             Entry& entry = buckets[index];
 
-            // TODO: Move value to first deleted element
-
-            if( entry.state == EntryState::DELETED ) continue;
             if( entry.state == EntryState::EMPTY ) break;  
 
+            if( entry.state == EntryState::DELETED ) {
+                firstDeletedEntry = &entry;
+                continue;
+            }                
+
             if( entry.hash == hash && entry.keyValuePair.first == key ) {
-                return entry.keyValuePair.second;
+                if( firstDeletedEntry != nullptr ) {
+                    *firstDeletedEntry = entry;
+                    entry.state = EntryState::DELETED;
+                    return firstDeletedEntry->keyValuePair.second;
+                }
+                else {
+                    return entry.keyValuePair.second;
+                }
             }
         }
 
