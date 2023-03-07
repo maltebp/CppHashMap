@@ -98,11 +98,14 @@ Good source: [.NET Dictionary, impressively fast but how does it work? - Stack O
   Answer that talks about different hash table implementations (e.g. [Google SparseHash](https://github.com/sparsehash/sparsehash)).
 - https://stackoverflow.com/a/13651266/12037986
   SO comment on performance benefits on open- vs. closed-addressing.
+- [Implementing Hash Tables in C](https://www.andreinc.net/2021/10/02/implementing-hash-tables-in-c-part-1#hash-functions)
+  Pretty cool, thorough blog post on implementing hash in C
+  - Contains both *Open Addressing* and *Separate Chaining* methods
+
 
 ## Unanswered questions
 
 - C++ mentions something about iterators remaining valid
-
 - What *is* the advantage of having an unordered_map using spatial locality exactly?
   
   - I suspect that is only for some what rare use cases, as the accessing often is sporadic and typically not done in sequence. Also, the nature of a good hashing algorithm would cause the elements to be significantly distributed across the allocated memory.
